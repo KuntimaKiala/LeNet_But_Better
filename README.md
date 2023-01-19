@@ -1,3 +1,3 @@
-# Vanilla SoftMax 
+# Vanilla LeNet 
 
-Case Study : SoftMax Regression
+Case Study : LeNet with 97% on MNIST DATASET
