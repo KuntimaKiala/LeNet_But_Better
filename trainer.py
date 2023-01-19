@@ -57,16 +57,16 @@ class Trainer(nn.Module) :
     def draw(self,data) :
         import matplotlib.pyplot as plt
         labels_map = {
-                        0: "T-Shirt",
-                        1: "Trouser",
-                        2: "Pullover",
-                        3: "Dress",
-                        4: "Coat",
-                        5: "Sandal",
-                        6: "Shirt",
-                        7: "Sneaker",
-                        8: "Bag",
-                        9: "Ankle Boot",
+                        0: "0",
+                        1: "1",
+                        2: "2",
+                        3: "3",
+                        4: "4",
+                        5: "5",
+                        6: "6",
+                        7: "7",
+                        8: "8",
+                        9: "9",
                     }
         
         fig = plt.figure(figsize=(8, 8))
@@ -79,32 +79,35 @@ class Trainer(nn.Module) :
             plt.imshow(img.squeeze(), cmap="turbo")
         plt.show()
         
-    def inference(self, data, n=1) :
+    def inference(self, data, n=1, device='cpu') :
         
-        classes = [
-        "T-shirt/top",
-        "Trouser",
-        "Pullover",
-        "Dress",
-        "Coat",
-        "Sandal",
-        "Shirt",
-        "Sneaker",
-        "Bag",
-        "Ankle boot"]
+        classes =  ["0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9"]
 
         self.model.eval()
         
         with torch.no_grad():
             for X, y in data :
+                X, y = X.to(device), y.to(device)
                 pred = self.model(X)
-                predicted, actual = classes[pred[0].argmax(0)], classes[y]
-                print(f'Predicted: "{predicted}", Actual: "{actual}"')
-                self.draw((X,y))
+                n = 0
+                y = y.reshape(-1,1)
+                print("pred :",pred[:,:].argmax(dim=1).reshape(-1,1).item(),"\ngt :", y[:,:].item())
+                predicted, actual = classes[pred[:,:].argmax(dim=1).reshape(-1,1).item()], classes[y[:,:].item()]
+                print(f'Pred,icted: "{predicted}", Actual: "{actual}"')
+                self.draw((X.detach().cpu().numpy(),y.detach().cpu().numpy()))
     
     def run(self,train_data, test_data, inference=False,device='cpu') :
         if inference and train_data==None:
-            self.inference(test_data)
+            self.inference(test_data, device=device)
             return
         
         accuracy = 0 
