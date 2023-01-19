@@ -57,17 +57,18 @@ class Trainer(nn.Module) :
     def draw(self,data) :
         import matplotlib.pyplot as plt
         labels_map = {
-                        0: "0",
-                        1: "1",
-                        2: "2",
-                        3: "3",
-                        4: "4",
-                        5: "5",
-                        6: "6",
-                        7: "7",
-                        8: "8",
-                        9: "9",
+                        0: "T-Shirt",
+                        1: "Trouser",
+                        2: "Pullover",
+                        3: "Dress",
+                        4: "Coat",
+                        5: "Sandal",
+                        6: "Shirt",
+                        7: "Sneaker",
+                        8: "Bag",
+                        9: "Ankle Boot",
                     }
+                    
         
         fig = plt.figure(figsize=(8, 8))
         cols, rows = 1, 1
@@ -81,16 +82,18 @@ class Trainer(nn.Module) :
         
     def inference(self, data, n=1, device='cpu') :
         
-        classes =  ["0",
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                    "9"]
+        
+        classes = [
+                    "T-shirt/top",
+                    "Trouser",
+                    "Pullover",
+                    "Dress",
+                    "Coat",
+                    "Sandal",
+                    "Shirt",
+                    "Sneaker",
+                    "Bag",
+                    "Ankle boot"]
 
         self.model.eval()
         
