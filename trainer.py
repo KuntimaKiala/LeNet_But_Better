@@ -38,7 +38,7 @@ class Trainer(nn.Module) :
                 loss += self.loss_fn(y_hat, y).item()     
                 y = y.reshape(-1,1)[:,:]  
                 #y_hat =y_hat[0:3,:]
-                print("pred :",y_hat[n:n+10,:].argmax(dim=1).reshape(-1,1),"\ngt :", y[n:n+10,:])
+                #print("pred :",y_hat[n:n+10,:].argmax(dim=1).reshape(-1,1),"\ngt :", y[n:n+10,:])
                 precision += (y_hat[:,:].argmax(dim=1).reshape(-1,1) == y[:,:]).sum(axis=0).item()
 
         loss      /= num_batches
@@ -96,11 +96,13 @@ class Trainer(nn.Module) :
         
         with torch.no_grad():
             for X, y in data :
+                #print(self.model.conv_layer_1[0:1](X.to(device)))
+                #exit()
                 X, y = X.to(device), y.to(device)
                 pred = self.model(X)
                 n = 0
                 y = y.reshape(-1,1)
-                print("pred :",pred[:,:].argmax(dim=1).reshape(-1,1).item(),"\ngt :", y[:,:].item())
+                #print("pred :",pred[:,:].argmax(dim=1).reshape(-1,1).item(),"\ngt :", y[:,:].item())
                 predicted, actual = classes[pred[:,:].argmax(dim=1).reshape(-1,1).item()], classes[y[:,:].item()]
                 print(f'Pred,icted: "{predicted}", Actual: "{actual}"')
                 self.draw((X.detach().cpu().numpy(),y.detach().cpu().numpy()))
