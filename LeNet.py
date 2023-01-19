@@ -36,8 +36,6 @@ class LeNet(nn.Module) :
         
         self.fcl_4 = nn.Sequential(nn.Linear(self.out_fcl2//2,self.output_size)) 
         
-
-        
         self.head = nn.Softmax(dim=1)
         
         self.net = nn.Sequential(self.conv_layer_1,

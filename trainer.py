@@ -81,7 +81,6 @@ class Trainer(nn.Module) :
         
     def inference(self, data, n=1) :
         
-        
         classes = [
         "T-shirt/top",
         "Trouser",

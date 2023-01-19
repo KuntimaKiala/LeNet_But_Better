@@ -16,3 +16,4 @@ if __name__ == '__main__' :
     model.to(device=device)
     trainer = Trainer(model=model, epochs=10, learning_rate=0.89, momentum=0.0)
     trainer.run(training_data, validation_data, device=device)
+    

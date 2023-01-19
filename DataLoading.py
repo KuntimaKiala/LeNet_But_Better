@@ -20,6 +20,7 @@ class DataHandler() :
         
         return self.training_dataset, self.validation_dataset
     
+    
     def DataLoader(self, training_dataset, validation_dataset) :
         self.training_data   = DataLoader(training_dataset,   batch_size=self.batch_size,shuffle=self.shuffle)
         self.validation_data = DataLoader(validation_dataset, batch_size=self.batch_size,shuffle=self.shuffle)
